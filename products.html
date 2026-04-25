@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Products – MeeShop</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/products.css"/>
+  <link rel="stylesheet" href="css/responsive.css"/>
+</head>
+<body>
+<div id="nav-placeholder"></div>
+<div id="bottom-nav-placeholder"></div>
+
+<div class="breadcrumb">
+  <div class="container"><p><a href="index.html">Home</a><span>/</span> All Products</p></div>
+</div>
+
+<section class="section products-page">
+  <div class="container">
+    <div class="products-layout">
+
+      <!-- Sidebar -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <h3>Filters</h3>
+          <button class="clear-filters" id="clearFilters">Clear All</button>
+        </div>
+
+        <div class="filter-section">
+          <h4>Category</h4>
+          <div class="filter-options" id="categoryFilters"></div>
+        </div>
+
+        <div class="filter-section">
+          <h4>Price Range</h4>
+          <div class="filter-options">
+            <label class="filter-check"><input type="radio" name="price" value="all" checked> All Prices</label>
+            <label class="filter-check"><input type="radio" name="price" value="0-299"> Under ₹299</label>
+            <label class="filter-check"><input type="radio" name="price" value="300-599"> ₹300 – ₹599</label>
+            <label class="filter-check"><input type="radio" name="price" value="600-999"> ₹600 – ₹999</label>
+            <label class="filter-check"><input type="radio" name="price" value="1000+"> Above ₹1000</label>
+          </div>
+        </div>
+
+        <div class="filter-section">
+          <h4>Minimum Rating</h4>
+          <div class="filter-options">
+            <label class="filter-check"><input type="radio" name="rating" value="0" checked> All</label>
+            <label class="filter-check"><input type="radio" name="rating" value="4"> 4★ & above</label>
+            <label class="filter-check"><input type="radio" name="rating" value="4.3"> 4.3★ & above</label>
+            <label class="filter-check"><input type="radio" name="rating" value="4.5"> 4.5★ & above</label>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Products -->
+      <div class="products-main">
+        <div class="products-topbar">
+          <div class="products-count" id="productsCount">Showing 50 products</div>
+          <div class="sort-wrap">
+            <label>Sort by:</label>
+            <select id="sortSelect" class="form-select" style="width:auto;padding:8px 32px 8px 12px">
+              <option value="default">Default</option>
+              <option value="price-asc">Price: Low → High</option>
+              <option value="price-desc">Price: High → Low</option>
+              <option value="rating">Top Rated</option>
+              <option value="discount">Most Discounted</option>
+            </select>
+          </div>
+          <button class="filter-toggle-btn" id="filterToggle">⚙ Filters</button>
+        </div>
+
+        <div class="product-grid" id="productsGrid"></div>
+
+        <div class="empty-state" id="emptyState" style="display:none">
+          <div class="empty-state-icon">🔍</div>
+          <h3>No products found</h3>
+          <p>Try adjusting your filters or search query.</p>
+          <button class="btn btn-primary" onclick="resetFilters()">Reset Filters</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="footer-placeholder"></div>
+<script src="js/data.js"></script>
+<script src="js/products.js"></script>
+</body>
+</html>

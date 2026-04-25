@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Checkout – MeeShop</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/checkout.css"/>
+  <link rel="stylesheet" href="css/responsive.css"/>
+</head>
+<body>
+<div id="nav-placeholder"></div>
+
+<div class="breadcrumb"><div class="container"><p><a href="index.html">Home</a><span>/</span><a href="cart.html">Cart</a><span>/</span>Checkout</p></div></div>
+
+<section class="section">
+  <div class="container">
+    <div class="checkout-steps">
+      <div class="step active"><span>1</span> Address</div>
+      <div class="step-line"></div>
+      <div class="step"><span>2</span> Payment</div>
+      <div class="step-line"></div>
+      <div class="step"><span>3</span> Confirm</div>
+    </div>
+    <div class="checkout-layout">
+      <div class="checkout-form-wrap">
+        <div class="card"><div class="card-body">
+          <h3 class="form-section-title">📦 Delivery Address</h3>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">First Name *</label><input class="form-input" id="fname" placeholder="Priya"></div>
+            <div class="form-group"><label class="form-label">Last Name *</label><input class="form-input" id="lname" placeholder="Shah"></div>
+          </div>
+          <div class="form-group"><label class="form-label">Mobile Number *</label><input class="form-input" id="phone" type="tel" placeholder="9876543210"></div>
+          <div class="form-group"><label class="form-label">Email Address</label><input class="form-input" id="email" type="email" placeholder="priya@email.com"></div>
+          <div class="form-group"><label class="form-label">Address Line 1 *</label><input class="form-input" id="addr1" placeholder="Flat / House No, Building"></div>
+          <div class="form-group"><label class="form-label">Address Line 2</label><input class="form-input" id="addr2" placeholder="Street, Locality (optional)"></div>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">City *</label><input class="form-input" id="city" placeholder="Ahmedabad"></div>
+            <div class="form-group"><label class="form-label">State *</label>
+              <select class="form-select" id="state">
+                <option value="">Select State</option>
+                <option>Gujarat</option><option>Maharashtra</option><option>Rajasthan</option>
+                <option>Delhi</option><option>Karnataka</option><option>Tamil Nadu</option>
+                <option>Uttar Pradesh</option><option>West Bengal</option><option>Telangana</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group"><label class="form-label">PIN Code *</label><input class="form-input" id="pin" placeholder="380015" maxlength="6"></div>
+        </div></div>
+      </div>
+      <div class="checkout-summary-wrap" id="checkoutSummary"></div>
+    </div>
+  </div>
+</section>
+
+<div id="footer-placeholder"></div>
+<script src="js/data.js"></script>
+<script src="js/checkout.js"></script>
+</body>
+</html>

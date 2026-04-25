@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Profile – MeeShop</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/profile.css"/>
+  <link rel="stylesheet" href="css/responsive.css"/>
+</head>
+<body>
+<div id="nav-placeholder"></div>
+<div id="bottom-nav-placeholder"></div>
+
+<section class="section">
+  <div class="container">
+    <div class="profile-layout">
+
+      <!-- Sidebar -->
+      <div class="profile-sidebar">
+        <div class="profile-avatar-wrap">
+          <div class="profile-avatar" id="avatarInitials">?</div>
+          <h3 id="profileName">Guest User</h3>
+          <p id="profileEmail" style="color:var(--text-muted);font-size:13px"></p>
+        </div>
+        <nav class="profile-nav">
+          <a class="profile-nav-item active" href="#" onclick="showSection('info',this)">👤 My Profile</a>
+          <a class="profile-nav-item" href="orders.html">📋 My Orders</a>
+          <a class="profile-nav-item" href="wishlist.html">❤️ Wishlist</a>
+          <a class="profile-nav-item" href="#" onclick="showSection('address',this)">📦 Addresses</a>
+          <a class="profile-nav-item" href="#" onclick="showSection('security',this)">🔒 Security</a>
+          <a class="profile-nav-item logout-item" href="#" onclick="doLogout()">🚪 Sign Out</a>
+        </nav>
+      </div>
+
+      <!-- Content -->
+      <div class="profile-content">
+        <!-- Info Section -->
+        <div id="section-info">
+          <div class="card"><div class="card-body">
+            <h3 class="section-title-sm">Personal Information</h3>
+            <div class="form-row"><div class="form-group"><label class="form-label">Full Name</label><input class="form-input" id="pName" placeholder="Your name"></div><div class="form-group"><label class="form-label">Email</label><input class="form-input" id="pEmail" type="email" placeholder="email@example.com"></div></div>
+            <div class="form-row"><div class="form-group"><label class="form-label">Mobile</label><input class="form-input" id="pPhone" type="tel" placeholder="9876543210"></div><div class="form-group"><label class="form-label">Gender</label><select class="form-select" id="pGender"><option value="">Select</option><option>Female</option><option>Male</option><option>Other</option><option>Prefer not to say</option></select></div></div>
+            <button class="btn btn-primary" onclick="saveProfile()">Save Changes</button>
+          </div></div>
+
+          <div class="profile-stats">
+            <div class="stat-card"><div class="stat-num" id="statOrders">0</div><div class="stat-label">Orders Placed</div></div>
+            <div class="stat-card"><div class="stat-num" id="statWish">0</div><div class="stat-label">Wishlist Items</div></div>
+            <div class="stat-card"><div class="stat-num" id="statSaved">₹0</div><div class="stat-label">Total Saved</div></div>
+          </div>
+        </div>
+
+        <!-- Address -->
+        <div id="section-address" style="display:none">
+          <div class="card"><div class="card-body">
+            <h3 class="section-title-sm">Saved Addresses</h3>
+            <div id="savedAddresses">
+              <p style="color:var(--text-muted);font-size:14px">No saved addresses yet. Complete a checkout to save your address.</p>
+            </div>
+          </div></div>
+        </div>
+
+        <!-- Security -->
+        <div id="section-security" style="display:none">
+          <div class="card"><div class="card-body">
+            <h3 class="section-title-sm">Security Settings</h3>
+            <div class="form-group"><label class="form-label">Current Password</label><input class="form-input" type="password" placeholder="Enter current password"></div>
+            <div class="form-group"><label class="form-label">New Password</label><input class="form-input" type="password" placeholder="Enter new password"></div>
+            <div class="form-group"><label class="form-label">Confirm New Password</label><input class="form-input" type="password" placeholder="Re-enter new password"></div>
+            <button class="btn btn-primary" onclick="showToast('Password updated successfully!','success')">Update Password</button>
+          </div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="footer-placeholder"></div>
+<script src="js/data.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    initNav('profile');
+    const user = getUser();
+    if (!user) { window.location.href = 'signin.html'; return; }
+    const initials = user.name.split(' ').map(n=>n[0]).join('').toUpperCase().slice(0,2);
+    document.getElementById('avatarInitials').textContent = initials;
+    document.getElementById('profileName').textContent = user.name;
+    document.getElementById('profileEmail').textContent = user.email || user.phone;
+    document.getElementById('pName').value = user.name || '';
+    document.getElementById('pEmail').value = user.email || '';
+    document.getElementById('pPhone').value = user.phone || '';
+    document.getElementById('statOrders').textContent = getOrders().length;
+    document.getElementById('statWish').textContent = getWishlist().length;
+    const saved = getOrders().reduce((s,o)=>{
+      return s + (o.items||[]).reduce((ss,i)=>ss+(i.oldPrice-i.price)*i.qty,0);
+    },0);
+    document.getElementById('statSaved').textContent = '₹'+saved.toLocaleString();
+    const addr = JSON.parse(localStorage.getItem('ms_checkout_addr')||'null');
+    if (addr && addr.addr1) {
+      document.getElementById('savedAddresses').innerHTML = `<div style="background:var(--bg-soft);border-radius:var(--radius);padding:18px;font-size:14px;line-height:1.8"><strong>${addr.name}</strong><br>${addr.addr1}${addr.addr2?', '+addr.addr2:''}<br>${addr.city}, ${addr.state} – ${addr.pin}<br>📞 ${addr.phone}</div>`;
+    }
+  });
+  function showSection(name, el) {
+    document.querySelectorAll('[id^="section-"]').forEach(s=>s.style.display='none');
+    document.getElementById('section-'+name).style.display='block';
+    document.querySelectorAll('.profile-nav-item').forEach(a=>a.classList.remove('active'));
+    if(el) el.classList.add('active');
+  }
+  function saveProfile() {
+    const user = getUser();
+    if (!user) return;
+    user.name = document.getElementById('pName').value || user.name;
+    user.email = document.getElementById('pEmail').value || user.email;
+    user.phone = document.getElementById('pPhone').value || user.phone;
+    saveUser(user);
+    showToast('Profile updated! ✅','success');
+  }
+  function doLogout() { logout(); }
+</script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Payment – MeeShop</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/payment.css"/>
+  <link rel="stylesheet" href="css/responsive.css"/>
+</head>
+<body>
+<div id="nav-placeholder"></div>
+
+<div class="breadcrumb"><div class="container"><p><a href="index.html">Home</a><span>/</span><a href="cart.html">Cart</a><span>/</span><a href="checkout.html">Checkout</a><span>/</span>Payment</p></div></div>
+
+<section class="section">
+  <div class="container">
+    <div class="checkout-steps">
+      <div class="step done"><span>✓</span> Address</div>
+      <div class="step-line"></div>
+      <div class="step active"><span>2</span> Payment</div>
+      <div class="step-line"></div>
+      <div class="step"><span>3</span> Confirm</div>
+    </div>
+    <div class="checkout-layout">
+      <div>
+        <div class="card">
+          <div class="card-body">
+            <h3 class="form-section-title">💳 Choose Payment Method</h3>
+            <div class="payment-methods">
+              <div class="pay-option active" data-method="upi" onclick="selectMethod(this)">
+                <div class="pay-radio"></div>
+                <div class="pay-icon">📱</div>
+                <div><strong>UPI</strong><small>Google Pay, PhonePe, Paytm</small></div>
+              </div>
+              <div class="pay-option" data-method="card" onclick="selectMethod(this)">
+                <div class="pay-radio"></div>
+                <div class="pay-icon">💳</div>
+                <div><strong>Credit / Debit Card</strong><small>Visa, Mastercard, RuPay</small></div>
+              </div>
+              <div class="pay-option" data-method="netbank" onclick="selectMethod(this)">
+                <div class="pay-radio"></div>
+                <div class="pay-icon">🏦</div>
+                <div><strong>Net Banking</strong><small>All major banks</small></div>
+              </div>
+              <div class="pay-option" data-method="emi" onclick="selectMethod(this)">
+                <div class="pay-radio"></div>
+                <div class="pay-icon">📅</div>
+                <div><strong>EMI</strong><small>No cost EMI available</small></div>
+              </div>
+              <div class="pay-option" data-method="cod" onclick="selectMethod(this)">
+                <div class="pay-radio"></div>
+                <div class="pay-icon">💵</div>
+                <div><strong>Cash on Delivery</strong><small>Pay when your order arrives</small></div>
+              </div>
+            </div>
+
+            <!-- UPI Form -->
+            <div class="pay-form" id="form-upi">
+              <div class="form-group"><label class="form-label">UPI ID</label><input class="form-input" id="upiId" placeholder="yourname@upi"></div>
+              <p class="pay-hint">Supported: Google Pay, PhonePe, Paytm, BHIM</p>
+            </div>
+            <!-- Card Form -->
+            <div class="pay-form" id="form-card" style="display:none">
+              <div class="form-group"><label class="form-label">Card Number</label><input class="form-input" id="cardNum" placeholder="1234 5678 9012 3456" maxlength="19"></div>
+              <div class="form-row">
+                <div class="form-group"><label class="form-label">Expiry</label><input class="form-input" id="expiry" placeholder="MM/YY" maxlength="5"></div>
+                <div class="form-group"><label class="form-label">CVV</label><input class="form-input" id="cvv" placeholder="123" maxlength="3" type="password"></div>
+              </div>
+              <div class="form-group"><label class="form-label">Name on Card</label><input class="form-input" id="cardName" placeholder="PRIYA SHAH"></div>
+            </div>
+            <!-- Net Banking -->
+            <div class="pay-form" id="form-netbank" style="display:none">
+              <div class="form-group"><label class="form-label">Select Bank</label>
+                <select class="form-select" id="bankName">
+                  <option>SBI</option><option>HDFC Bank</option><option>ICICI Bank</option>
+                  <option>Axis Bank</option><option>Kotak Mahindra</option><option>PNB</option>
+                </select>
+              </div>
+            </div>
+            <!-- COD -->
+            <div class="pay-form" id="form-cod" style="display:none">
+              <div class="cod-info">
+                <p>💵 Pay with cash when your order is delivered. No extra charges.</p>
+                <div class="cod-note">⚠️ COD is available on orders below ₹5000</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="paySummary"></div>
+    </div>
+  </div>
+</section>
+
+<div id="footer-placeholder"></div>
+<script src="js/data.js"></script>
+<script src="js/payment.js"></script>
+</body>
+</html>

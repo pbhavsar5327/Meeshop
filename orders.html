@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Orders – MeeShop</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/orders.css"/>
+  <link rel="stylesheet" href="css/responsive.css"/>
+</head>
+<body>
+<div id="nav-placeholder"></div>
+<div id="bottom-nav-placeholder"></div>
+
+<div class="page-hero">
+  <div class="container">
+    <h1>My <span>Orders</span> 📋</h1>
+    <p>Track and manage all your orders</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div id="ordersContainer"></div>
+    <div class="empty-state" id="ordersEmpty" style="display:none">
+      <div class="empty-state-icon">📦</div>
+      <h3>No orders yet</h3>
+      <p>You haven't placed any orders. Start shopping to see them here.</p>
+      <a href="products.html" class="btn btn-primary">Start Shopping</a>
+    </div>
+  </div>
+</section>
+
+<div id="footer-placeholder"></div>
+<script src="js/data.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    initNav('orders');
+    const orders = getOrders();
+    const container = document.getElementById('ordersContainer');
+    const empty = document.getElementById('ordersEmpty');
+    if (orders.length === 0) { empty.style.display='block'; return; }
+    container.innerHTML = orders.map(o => `
+      <div class="order-card">
+        <div class="order-card-header">
+          <div>
+            <div class="order-id">Order #${o.id}</div>
+            <div class="order-date">${o.date}</div>
+          </div>
+          <span class="badge badge-success">${o.status}</span>
+        </div>
+        <div class="order-items">
+          ${(o.items||[]).slice(0,3).map(i=>`
+            <div class="order-item">
+              <img src="${i.image}" alt="${i.name}">
+              <div>
+                <div class="order-item-name">${i.name}</div>
+                <div class="order-item-meta">Qty: ${i.qty} · ₹${(i.price*i.qty).toLocaleString()}</div>
+              </div>
+            </div>`).join('')}
+          ${o.items.length>3?`<p style="font-size:13px;color:var(--text-muted);margin-top:8px">+${o.items.length-3} more items</p>`:''}
+        </div>
+        <div class="order-card-footer">
+          <div class="order-total">Total: <strong>₹${(o.total||0).toLocaleString()}</strong></div>
+          <div class="order-actions">
+            <button class="btn btn-secondary btn-sm" onclick="showToast('Invoice download coming soon!','')">Download Invoice</button>
+            <button class="btn btn-primary btn-sm" onclick="reorder(${JSON.stringify(o.items).replace(/"/g,'&quot;')})">Reorder</button>
+          </div>
+        </div>
+      </div>`).join('');
+  });
+
+  function reorder(items) {
+    items.forEach(i => addToCart(i.id, 1));
+    showToast('Items added to cart! 🛒', 'success');
+    setTimeout(() => window.location.href = 'cart.html', 1000);
+  }
+</script>
+</body>
+</html>

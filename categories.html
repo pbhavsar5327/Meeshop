@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Categories – MeeShop</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/categories.css"/>
+  <link rel="stylesheet" href="css/responsive.css"/>
+</head>
+<body>
+<div id="nav-placeholder"></div>
+<div id="bottom-nav-placeholder"></div>
+
+<div class="page-hero">
+  <div class="container">
+    <h1>Shop by <span>Category</span></h1>
+    <p>Explore our wide range of product categories</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="cat-page-grid" id="catPageGrid"></div>
+  </div>
+</section>
+
+<!-- Featured per category -->
+<section class="section" style="background:var(--bg-soft)">
+  <div class="container" id="catFeatured"></div>
+</section>
+
+<div id="footer-placeholder"></div>
+<script src="js/data.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    initNav('categories');
+
+    const catGrid = document.getElementById('catPageGrid');
+    CATEGORIES.forEach(cat => {
+      const prods = PRODUCTS.filter(p => p.category === cat.name);
+      catGrid.innerHTML += `
+        <a href="products.html?cat=${encodeURIComponent(cat.name)}" class="cat-page-card">
+          <img class="cat-page-cover" src="${cat.image}" alt="${cat.name}">
+          <div class="cat-page-info">
+            <h3>${cat.name}</h3>
+            <p>${prods.length} products</p>
+          </div>
+          <div class="cat-arrow">→</div>
+        </a>`;
+    });
+
+    // Show featured products per category with products
+    const featured = document.getElementById('catFeatured');
+    const catsWithProducts = CATEGORIES.filter(cat => PRODUCTS.some(p => p.category === cat.name));
+    catsWithProducts.forEach(cat => {
+      const prods = PRODUCTS.filter(p => p.category === cat.name).slice(0, 4);
+      featured.innerHTML += `
+        <div style="margin-bottom:52px">
+          <div class="section-header">
+            <h2>${cat.icon} ${cat.name}</h2>
+            <a href="products.html?cat=${encodeURIComponent(cat.name)}">View All →</a>
+          </div>
+          <div class="product-grid">${prods.map(p => productCardHtml(p)).join('')}</div>
+        </div>`;
+    });
+  });
+</script>
+</body>
+</html>
