@@ -1,0 +1,28 @@
+/* payment.css */
+.payment-methods { display:flex; flex-direction:column; gap:10px; margin-bottom:24px; }
+.pay-option { display:flex; align-items:center; gap:14px; padding:16px; border:2px solid var(--border); border-radius:var(--radius); cursor:pointer; transition:all 0.2s; }
+.pay-option:hover { border-color:var(--primary-light); }
+.pay-option.active { border-color:var(--primary); background:var(--bg-soft); }
+.pay-radio { width:18px; height:18px; border-radius:50%; border:2px solid var(--border); flex-shrink:0; transition:all 0.2s; position:relative; }
+.pay-option.active .pay-radio { border-color:var(--primary); background:var(--primary); }
+.pay-option.active .pay-radio::after { content:''; position:absolute; width:6px; height:6px; background:white; border-radius:50%; top:50%; left:50%; transform:translate(-50%,-50%); }
+.pay-icon { font-size:24px; }
+.pay-option strong { display:block; font-size:15px; color:var(--text); }
+.pay-option small { font-size:12px; color:var(--text-muted); }
+.pay-form { border-top:1px solid var(--border-soft); padding-top:20px; }
+.pay-hint { font-size:12px; color:var(--text-muted); margin-top:-8px; }
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.cod-info { background:var(--bg-soft); border-radius:var(--radius); padding:20px; }
+.cod-info p { font-size:15px; color:var(--text); margin-bottom:12px; }
+.cod-note { font-size:13px; color:var(--warning); background:#FFF3E0; padding:10px 14px; border-radius:var(--radius-sm); }
+
+.pay-summary { background:white; border-radius:var(--radius-lg); padding:24px; box-shadow:var(--card-shadow); position:sticky; top:calc(var(--nav-height)+16px); }
+.pay-summary h3 { font-size:18px; font-weight:700; margin-bottom:18px; }
+.pay-row { display:flex; justify-content:space-between; font-size:14px; color:var(--text-muted); margin-bottom:10px; }
+.pay-row.total { font-size:17px; font-weight:700; color:var(--text); border-top:1px solid var(--border-soft); padding-top:10px; }
+.pay-addr { background:var(--bg-soft); border-radius:var(--radius-sm); padding:14px; margin-bottom:18px; font-size:13px; line-height:1.7; }
+.pay-addr strong { font-size:14px; display:block; margin-bottom:4px; }
+.pay-now-btn { width:100%; padding:14px; font-size:15px; margin-top:16px; }
+
+@media(max-width:1024px){ .pay-summary{position:static;} }
+@media(max-width:768px){ .form-row{grid-template-columns:1fr;} }

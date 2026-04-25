@@ -1,0 +1,28 @@
+/* checkout.css */
+.checkout-steps { display:flex; align-items:center; justify-content:center; gap:0; margin-bottom:36px; }
+.step { display:flex; align-items:center; gap:8px; font-size:14px; font-weight:600; color:var(--text-muted); }
+.step.active { color:var(--primary); }
+.step.done { color:var(--success); }
+.step span { width:32px; height:32px; border-radius:50%; border:2px solid currentColor; display:flex; align-items:center; justify-content:center; font-size:14px; }
+.step.active span { background:var(--primary); color:white; border-color:var(--primary); }
+.step.done span { background:var(--success); color:white; border-color:var(--success); }
+.step-line { flex:1; height:2px; background:var(--border); margin:0 12px; max-width:80px; }
+.checkout-layout { display:grid; grid-template-columns:1fr 360px; gap:28px; align-items:start; }
+.form-section-title { font-size:18px; font-weight:700; margin-bottom:20px; color:var(--text); }
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+
+/* summary */
+.co-summary { background:white; border-radius:var(--radius-lg); padding:24px; box-shadow:var(--card-shadow); position:sticky; top:calc(var(--nav-height)+16px); }
+.co-summary h3 { font-size:18px; font-weight:700; margin-bottom:18px; }
+.co-item { display:flex; gap:12px; margin-bottom:14px; padding-bottom:14px; border-bottom:1px solid var(--border-soft); }
+.co-item:last-of-type { border:none; }
+.co-item img { width:56px; height:60px; object-fit:cover; border-radius:var(--radius-sm); }
+.co-item-info { flex:1; }
+.co-item-name { font-size:13px; font-weight:600; color:var(--text); margin-bottom:3px; }
+.co-item-price { font-size:14px; font-weight:700; color:var(--primary); }
+.co-item-qty { font-size:12px; color:var(--text-muted); }
+.co-row { display:flex; justify-content:space-between; font-size:14px; color:var(--text-muted); margin-bottom:10px; }
+.co-row.total { font-size:17px; font-weight:700; color:var(--text); border-top:1px solid var(--border-soft); padding-top:10px; }
+.proceed-btn { width:100%; margin-top:18px; padding:14px; font-size:15px; }
+@media(max-width:1024px){ .checkout-layout{grid-template-columns:1fr;} .co-summary{position:static;} }
+@media(max-width:768px){ .form-row{grid-template-columns:1fr;} .checkout-steps{gap:4px;} .step-line{max-width:40px;} }

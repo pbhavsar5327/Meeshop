@@ -1,0 +1,12 @@
+
+/* categories.css */
+.cat-page-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+.cat-page-card { display:flex; align-items:center; gap:18px; background:white; border-radius:var(--radius-lg); padding:16px 18px; text-decoration:none; color:var(--text); box-shadow:var(--card-shadow); transition:all 0.3s; border:2px solid transparent; }
+.cat-page-card:hover { border-color:var(--primary); transform:translateX(4px); box-shadow:var(--card-shadow-hover); }
+.cat-page-cover { width:84px; height:84px; object-fit:cover; border-radius:18px; flex-shrink:0; }
+.cat-page-info { flex:1; }
+.cat-page-info h3 { font-size:16px; font-weight:700; margin-bottom:4px; }
+.cat-page-info p { font-size:13px; color:var(--text-muted); }
+.cat-arrow { font-size:20px; color:var(--text-muted); transition:color 0.2s; }
+.cat-page-card:hover .cat-arrow { color:var(--primary); }
+@media(max-width:768px){ .cat-page-grid{grid-template-columns:1fr;} .cat-page-cover{width:72px;height:72px;} }
